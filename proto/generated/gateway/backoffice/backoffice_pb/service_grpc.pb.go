@@ -60,15 +60,14 @@ func (c *serviceClient) CreateDocument(ctx context.Context, in *DocumentCreateRe
 }
 
 // ServiceServer is the server API for Service service.
-// All implementations must embed UnimplementedServiceServer
+// All implementations should embed UnimplementedServiceServer
 // for forward compatibility
 type ServiceServer interface {
 	Ping(context.Context, *PingRequest) (*PingReply, error)
 	CreateDocument(context.Context, *DocumentCreateRequest) (*DocumentCreateReply, error)
-	mustEmbedUnimplementedServiceServer()
 }
 
-// UnimplementedServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedServiceServer struct {
 }
 
@@ -78,7 +77,6 @@ func (UnimplementedServiceServer) Ping(context.Context, *PingRequest) (*PingRepl
 func (UnimplementedServiceServer) CreateDocument(context.Context, *DocumentCreateRequest) (*DocumentCreateReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDocument not implemented")
 }
-func (UnimplementedServiceServer) mustEmbedUnimplementedServiceServer() {}
 
 // UnsafeServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to ServiceServer will
